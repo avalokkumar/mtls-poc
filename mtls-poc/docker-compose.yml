@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # mTLS server
+  mtls-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mtls-server
+    ports:
+      - "8443:8443"
+    volumes:
+      - ./certs:/usr/src/app/certs
+      - ./server:/usr/src/app/server
+      - ./scripts:/usr/src/app/scripts
+    command: >
+      sh -c "node server/server.js"
+    networks:
+      - mtls-network
+
+  # Certificate generator service
+  cert-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mtls-cert-generator
+    volumes:
+      - ./certs:/usr/src/app/certs
+      - ./scripts:/usr/src/app/scripts
+    command: >
+      sh -c "./scripts/create-ca.sh && 
+             ./scripts/create-server-cert.sh && 
+             ./scripts/create-client-cert.sh client1 && 
+             ./scripts/create-client-cert.sh client2"
+    networks:
+      - mtls-network
+
+  # Client testing service
+  mtls-client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mtls-client
+    depends_on:
+      - mtls-server
+      - cert-generator
+    volumes:
+      - ./certs:/usr/src/app/certs
+      - ./clients:/usr/src/app/clients
+    environment:
+      - SERVER_HOST=mtls-server
+    command: >
+      sh -c "sleep 5 && 
+             apk add --no-cache curl && 
+             curl --cacert certs/ca.crt --cert certs/client1.crt --key certs/client1.key https://mtls-server:8443/"
+    networks:
+      - mtls-network
+
+networks:
+  mtls-network:
+    driver: bridge

@@ -1,0 +1,25 @@
+{
+  "name": "mtls-server",
+  "version": "1.0.0",
+  "description": "Node.js HTTPS server with mutual TLS (mTLS) authentication",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "web": "node web-server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mtls",
+    "mutual-tls",
+    "https",
+    "security",
+    "certificates",
+    "node"
+  ],
+  "author": "mTLS PoC",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1"
+  }
+}
