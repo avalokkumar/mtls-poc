@@ -1,4 +1,4 @@
-# Mutual TLS (mTLS) Authentication Proof of Concept
+# Mutual TLS (mTLS) Authentication Demo Application
 
 This project demonstrates how Mutual TLS (mTLS) works by implementing a secure server and client authentication using certificates.
 
