@@ -1,0 +1,238 @@
+/* styles.css - Styling for mTLS Certificate Manager UI */
+
+/* Global Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+section {
+  padding-top: 15px;
+  scroll-margin-top: 60px;
+}
+
+.card {
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.card-header {
+  border-radius: 0.5rem 0.5rem 0 0 !important;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+  transition: all 0.3s;
+  height: 100%;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Certificate Visualization */
+.certificate-details {
+  min-height: 300px;
+}
+
+.cert-property {
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.cert-property:last-child {
+  border-bottom: none;
+}
+
+.cert-property-name {
+  font-weight: bold;
+  color: #495057;
+}
+
+.cert-property-value {
+  font-family: monospace;
+  background-color: #f8f9fa;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.2rem;
+}
+
+.cert-validity-ok {
+  color: #198754;
+}
+
+.cert-validity-expired {
+  color: #dc3545;
+}
+
+.cert-validity-warning {
+  color: #fd7e14;
+}
+
+/* Certificate Chain Visualization */
+.cert-chain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.cert-chain-item {
+  padding: 1rem;
+  border: 2px solid #6c757d;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  width: 80%;
+  position: relative;
+}
+
+.cert-chain-arrow {
+  height: 2rem;
+  color: #6c757d;
+  font-size: 1.5rem;
+}
+
+.cert-chain-item.root-ca {
+  background-color: #d1e7dd;
+  border-color: #198754;
+}
+
+.cert-chain-item.server {
+  background-color: #cfe2ff;
+  border-color: #0d6efd;
+}
+
+.cert-chain-item.client {
+  background-color: #fff3cd;
+  border-color: #ffc107;
+}
+
+/* Handshake Visualization */
+.handshake-visualization {
+  margin-top: 2rem;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+}
+
+.handshake-steps {
+  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.step {
+  margin-bottom: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: all 0.3s;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+  background-color: rgba(13, 110, 253, 0.1);
+  box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
+}
+
+.step.success {
+  opacity: 1;
+  background-color: rgba(25, 135, 84, 0.1);
+  box-shadow: 0 0 10px rgba(25, 135, 84, 0.2);
+}
+
+.step.fail {
+  opacity: 1;
+  background-color: rgba(220, 53, 69, 0.1);
+  box-shadow: 0 0 10px rgba(220, 53, 69, 0.2);
+}
+
+.step-text {
+  margin-left: 0.5rem;
+  font-weight: 500;
+}
+
+.client-box, .server-box {
+  border: 2px solid #6c757d;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  height: 100%;
+  position: relative;
+}
+
+.certificate-badge {
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.certificate-label {
+  font-size: 0.7rem;
+  margin-top: 0.25rem;
+}
+
+.certificate-badge.valid {
+  border-color: #198754;
+  color: #198754;
+}
+
+.certificate-badge.invalid {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.message-arrow {
+  position: absolute;
+  font-size: 1.5rem;
+  animation: moveArrow 1.5s infinite;
+  opacity: 0;
+}
+
+.message-arrow.left-to-right {
+  left: 33%;
+}
+
+.message-arrow.right-to-left {
+  right: 33%;
+}
+
+@keyframes moveArrow {
+  0% { opacity: 0; transform: translateX(-15px); }
+  50% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(15px); }
+}
+
+/* API Test Console */
+#response-data {
+  background-color: #212529;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  min-height: 150px;
+  max-height: 400px;
+  overflow: auto;
+  color: #f8f9fa;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 768px) {
+  .handshake-visualization {
+    padding: 1rem;
+  }
+  
+  .client-box, .server-box {
+    margin-bottom: 1.5rem;
+  }
+}
